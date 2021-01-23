@@ -13,8 +13,8 @@ const App = (props) => {
   const { videos } = props;
   return (
     <>
-      {videos.map(({ title, url }, key) => (
-        <VideoEntry title={title} url={url} key={key} />
+      {videos.map(({ title, url, id }, key) => (
+        <VideoEntry title={title} url={url} id={id} key={key} />
       ))}
     </>
   );
