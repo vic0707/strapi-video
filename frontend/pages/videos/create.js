@@ -3,14 +3,6 @@ import React, { useReducer } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-export async function getServerSideProps(context) {
-  const res = await fetch(`http://localhost:1337/videos/${context.query.id}`);
-  const video = await res.json();
-  return {
-    props: { video }
-  }
-}
-
 function reducer(state, action) {
   switch (action.type) {
     case 'change':
@@ -23,15 +15,11 @@ function reducer(state, action) {
   }
 }
 
-function init (initialState) {
-  return {
-    title: initialState.title,
-    url: initialState.url
-  }
-}
-
-function EditVideo (props) {
-  const [state, dispatch] = useReducer(reducer, props.video, init);
+function CreateVideo () {
+  const [state, dispatch] = useReducer(reducer, {
+    title: '',
+    url: ''
+  });
   const changeValue = ({ field, value }) => {
     return dispatch({
       type: 'change',
@@ -40,9 +28,9 @@ function EditVideo (props) {
     });
   };
 
-  const saveVideo = async () => {
-    const res = await fetch(`http://localhost:1337/videos/${props.video.id}`, {
-      method: 'PUT',
+  const createVideo = async () => {
+    const res = await fetch('http://localhost:1337/videos', {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -57,11 +45,11 @@ function EditVideo (props) {
     <>
       <TextField id='title' value={state.title} onChange={(e) => changeValue({ field: 'title', value: e.target.value })} />
       <TextField id='url' value={state.url} onChange={(e) => changeValue({ field: 'url', value: e.target.value })} />
-      <Button onClick={saveVideo}>
+      <Button onClick={createVideo}>
         Save
       </Button>
     </>
   );
 }
 
-export default EditVideo;
+export default CreateVideo;

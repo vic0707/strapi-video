@@ -16,7 +16,7 @@ const useStyles = makeStyles({
   },
 });
 
-const VideoEntry = ({ title, url, id }) => {
+function VideoEntry ({ title, url, id }) {
   const classes = useStyles();
   const [play, setPlay] = useState(false);
   return (

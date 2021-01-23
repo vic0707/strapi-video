@@ -1,4 +1,6 @@
 import React from 'react';
+import Link from 'next/link'
+
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
@@ -7,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import theme from '../theme';
 
-function MyApp({ Component, pageProps }) {
+function App ({ Component, pageProps }) {
   React.useEffect(() => {
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles) {
@@ -18,12 +20,16 @@ function MyApp({ Component, pageProps }) {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AppBar position="static">
+      <AppBar position='static'>
         <Toolbar>
-          <Typography variant="h6">
+          <Typography variant='h6'>
             Video Player
           </Typography>
-          <Button color="inherit">Add New Video</Button>
+          <Button>
+            <Link href={`/videos/create`}>
+              Add New Video
+            </Link>
+          </Button>
         </Toolbar>
       </AppBar>
       <Component {...pageProps} />
@@ -31,4 +37,4 @@ function MyApp({ Component, pageProps }) {
   );
 }
 
-export default MyApp
+export default App

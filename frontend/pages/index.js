@@ -9,7 +9,7 @@ export async function getServerSideProps() {
   }
 }
 
-const App = (props) => {
+function Videos (props) {
   const { videos } = props;
   return (
     <>
@@ -20,4 +20,4 @@ const App = (props) => {
   );
 };
 
-export default App;
+export default Videos;
