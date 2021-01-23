@@ -1,9 +1,7 @@
 import React from 'react';
-import { ThemeProvider } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import theme from '../theme';
+import VideoEntry from '../components/VideoEntry'
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
   const res = await fetch('http://localhost:1337/videos');
   const videos = await res.json();
   return {
@@ -13,20 +11,12 @@ export async function getServerSideProps(context) {
 
 const App = (props) => {
   const { videos } = props;
-
-  React.useEffect(() => {
-    const jssStyles = document.querySelector('#jss-server-side');
-    if (jssStyles) {
-      jssStyles.parentElement.removeChild(jssStyles);
-    }
-  }, []);
-
-  console.log('file: index.js ~ line 14 ~ videos', videos);
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <div>Welcome to next.js!</div>
-    </ThemeProvider>
+    <>
+      {videos.map(({ title, url }, key) => (
+        <VideoEntry title={title} url={url} key={key} />
+      ))}
+    </>
   );
 };
 
