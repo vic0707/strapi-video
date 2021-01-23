@@ -1,5 +1,6 @@
 import React from 'react';
 import VideoEntry from '../components/VideoEntry'
+import NavBar from '../components/NavBar'
 
 export async function getServerSideProps() {
   const res = await fetch('http://localhost:1337/videos');
@@ -13,6 +14,7 @@ function Videos (props) {
   const { videos } = props;
   return (
     <>
+      <NavBar />
       {videos.map(({ title, url, id }, key) => (
         <VideoEntry title={title} url={url} id={id} key={key} />
       ))}
