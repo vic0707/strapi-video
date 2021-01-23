@@ -8,13 +8,16 @@ import Button from '@material-ui/core/Button';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   title: {
     fontWeight: 500,
-    fontSize: 24,
-    cursor: 'pointer'
+    fontSize: 24
   },
-});
+  link: {
+    color: theme.palette.background.default,
+    textDecoration: 'none'
+  }
+}));
 
 function VideoEntry ({ title, url, id }) {
   const classes = useStyles();
@@ -26,19 +29,24 @@ function VideoEntry ({ title, url, id }) {
       </Dialog>
       <Box
         color='primary.main'
-        bgcolor='secondary.main'
         border={1}
         m={2}
         p={2}
+        display='flex'
+        justifyContent='space-between'
       >
-        <span className={classes.title} onClick={() => setPlay(true)}>
+        <Button
+          className={classes.title}
+          variant='contained'
+          onClick={() => setPlay(true)}
+        >
           {title}
-        </span>
-        <Button>
-          <Link href={`/videos/${id}`}>
-            Edit video
-          </Link>
         </Button>
+        <Link href={`/videos/${id}`}>
+          <Button variant='contained' color='secondary' className={classes.link}>
+            Edit video
+          </Button>
+        </Link>
       </Box>
     </>
   );
